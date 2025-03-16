@@ -29,6 +29,11 @@
               {
                 "glob": "**/*",
                 "input": "projects/webllm-resume-demo/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-extended-pdf-viewer/assets/",
+                "output": "/assets/"
               }
             ],
             "styles": [
