@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { CVAnalyserComponent } from './llm/cv-analyser/cv-analyser.component';
+import { WebLLMResourcesComponent } from './llm/resources/resources.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  imports: [CVAnalyserComponent, WebLLMResourcesComponent],
+  template: `
+    <app-cv-analyser />
+    <app-webllm-resources />
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  title = 'webllm-resume-demo';
-}
+export class AppComponent {}
