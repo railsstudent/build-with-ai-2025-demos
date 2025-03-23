@@ -5,7 +5,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   template: `
     <h3>Useful Links:</h3>
     <ol>
-      <li><a href="https://mlc.ai/models" target="_blank">WebLLM Model List</a></li>
+      <li><a href="https://mlc.ai/models" target="_blank">MLC Complete Model List</a></li>
+      <li><a href="https://github.com/mlc-ai/web-llm/blob/main/src/config.ts#L311" target="_blank">WebLLM Model List</a></li>
       <li>
         <a href="https://github.com/mlc-ai/web-llm/tree/main/examples" target="_blank">
           WebLLM Examples

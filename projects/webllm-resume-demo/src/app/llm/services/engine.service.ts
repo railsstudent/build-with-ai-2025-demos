@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, Injector, resource, signal } from '@angular/core';
+import { computed, inject, Injectable, Injector, resource, signal, WritableSignal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { CreateMLCEngine, InitProgressReport, MLCEngineConfig } from '@mlc-ai/web-llm';
 import { switchMap, tap } from 'rxjs';
@@ -29,8 +29,6 @@ export class EngineService {
     { model: 'Qwen2.5-Coder-1.5B-Instruct-q4f32_1-MLC', name: 'Qwen2.5-Coder-1.5B-Instruct' },
     { model: 'Qwen2.5-Coder-3B-Instruct-q4f32_1-MLC', name: 'Qwen2.5-Coder-3B-Instruct' },
   ];
-
-  selectedModel = signal(this.models[0]);
   
   #progress = signal(0);
   #progressText = signal({ value: '' });
@@ -76,8 +74,8 @@ export class EngineService {
     }
   }
 
-  createEngine(injector: Injector) {
-    return toObservable(this.selectedModel, { injector })
+  createEngine(selectedModel: WritableSignal<LLMModel>, injector: Injector) {
+    return toObservable(selectedModel, { injector })
       .pipe(
         tap(() => {
           this.engineError.set('');

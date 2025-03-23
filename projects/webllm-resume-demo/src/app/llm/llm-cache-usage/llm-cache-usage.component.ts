@@ -1,9 +1,11 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Injector } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Injector, signal } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { LlmDeleteCacheComponent } from '../llm-delete-cache/llm-delete-cache.component';
+import { LLM_MODEL_LIST } from '../llm-models.constant';
 import { LlmSelectModelComponent } from '../llm-select-model/llm-select-model.component';
 import { EngineService } from '../services/engine.service';
+import { LLMModel } from './../types/llm-model.type';
 
 @Component({
   selector: 'app-llm-cache-usage',
@@ -28,11 +30,13 @@ import { EngineService } from '../services/engine.service';
 })
 export class LlmCacheUsageComponent {
   injector = inject(Injector);
-  engineService = inject(EngineService);
+  engineService = inject(EngineService);;
+  models = inject(LLM_MODEL_LIST);
+  
+  selectedModel = signal<LLMModel>(this.models[0]);
 
-  selectedModel = this.engineService.selectedModel;
   progressResource = this.engineService.createProgressResource(this.injector);  
-  engine$ = this.engineService.createEngine(this.injector);
+  engine$ = this.engineService.createEngine(this.selectedModel, this.injector);
   engineError = this.engineService.engineError;
 
   selectEngine = outputFromObservable(this.engine$);

@@ -17,7 +17,7 @@ import { EngineService } from '../services/engine.service';
         const service = inject(EngineService);
         return service.models;
       }
-    }
+    },
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
