@@ -1,13 +1,2 @@
 <h2>CV Analyzer LLM</h2>
-<p>Model: {{ model() }}</p>
-@if (error()) {
-    <label for="error">Error:&nbsp;&nbsp;</label>
-    <span class='error' id="error" name="error">{{ error() }}</span>
-} @else {
-    @if (progressResource.error()) {
-        <p class='error'>Error: {{ progressResource.error() }}</p>
-    } @else if (progressResource.hasValue()) {
-        <p>Progress: {{ progressResource.value() }}</p>
-    } 
-    Ready: {{ ready()}}
-}
+<app-llm-cache-usage />
