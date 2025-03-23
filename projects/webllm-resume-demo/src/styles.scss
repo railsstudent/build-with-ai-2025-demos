@@ -17,23 +17,17 @@ div, h2 {
     margin-bottom: 1rem;
 }
 
-p {
+p, li {
     margin-bottom: 0.5rem;
 }
 
-button {
+button, select {
     padding: 0.5rem;
     border-radius: 0.25rem;
 }
 
 li {
     margin-left: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-select {
-    padding: 0.25rem;
-    border-radius: 0.25rem;
 }
 
 .error {
