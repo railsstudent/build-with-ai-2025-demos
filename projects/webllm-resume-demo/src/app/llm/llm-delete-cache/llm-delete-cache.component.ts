@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, inject, input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { deleteModelAllInfoInCache, hasModelInCache, MLCEngine } from '@mlc-ai/web-llm';
-import { APP_STATE_TOKEN } from '../../app-state.constant';
+import { APP_STATE_TOKEN } from '../../app-state/app-state.constant';
+import { LLM_MODEL_LIST } from '../llm-models.constant';
 import { LlmSelectModelComponent } from '../llm-select-model/llm-select-model.component';
 import { LLMModel } from '../types/llm-model.type';
 
@@ -21,16 +22,12 @@ import { LLMModel } from '../types/llm-model.type';
   styleUrl: './llm-delete-cache.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LlmDeleteCacheComponent implements OnInit {
-  models = input.required<LLMModel[]>();
-  selectedModel = signal<LLMModel>({ name: '', model: ''});
-  engine = input<MLCEngine | undefined>(undefined);
-
+export class LlmDeleteCacheComponent {
+  models = inject(LLM_MODEL_LIST);
   isLoading = inject(APP_STATE_TOKEN).isLoading;
-
-  ngOnInit(): void {
-    this.selectedModel.set(this.models()[0]);
-  }
+  
+  selectedModel = signal<LLMModel>(this.models[0]);
+  engine = input<MLCEngine | undefined | null>(undefined);
 
   async deleteModelFromCache() {
     try {
@@ -56,7 +53,7 @@ export class LlmDeleteCacheComponent implements OnInit {
     try {
       this.isLoading.set(true);
 
-      const promises = this.models().map(({ model }) => 
+      const promises = this.models.map(({ model }) => 
         this.#deleteModelFromCacheById(model));
       
       await Promise.allSettled(promises);

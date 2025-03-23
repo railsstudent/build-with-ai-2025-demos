@@ -2,8 +2,8 @@ import { ApplicationConfig, provideExperimentalZonelessChangeDetection, signal }
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideCacheUsageConfig } from './llm/llm-cache-usage/cache-usage.config';
-import { APP_STATE_TOKEN } from './app-state.constant';
-import { AppState } from './app-state.interface';
+import { APP_STATE_TOKEN } from './app-state/app-state.constant';
+import { AppState } from './app-state/app-state.interface';
 
 export const appInitialState: AppState = {
   isLoading: signal(false),

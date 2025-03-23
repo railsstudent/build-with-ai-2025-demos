@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { APP_STATE_TOKEN } from '../../app-state.constant';
+import { APP_STATE_TOKEN } from '../../app-state/app-state.constant';
+import { LLM_MODEL_LIST } from '../llm-models.constant';
 import { EngineService } from '../services/engine.service';
+import { LLMModel } from '../types/llm-model.type';
 
 @Component({
   selector: 'app-llm-select-model',
@@ -11,9 +13,8 @@ import { EngineService } from '../services/engine.service';
       <label for="models">
         <ng-content>Models: </ng-content>
       </label>
-      {{ isLoading() }}
       <select id="models" name="models" [(ngModel)]="selectedModel" [disabled]="isLoading()">
-        @for (model of models(); track model) {
+        @for (model of models; track model) {
           @let text = model.name ? model.name : '-------';
           <option [ngValue]="model">{{ text }}</option>
         }
@@ -25,7 +26,7 @@ import { EngineService } from '../services/engine.service';
 export class LlmSelectModelComponent {
   engineService = inject(EngineService);
   isLoading = inject(APP_STATE_TOKEN).isLoading;
+  models = inject(LLM_MODEL_LIST);
 
-  models = this.engineService.models;
-  selectedModel = model(this.models()[0]);
+  selectedModel = model.required<LLMModel>();
 }
