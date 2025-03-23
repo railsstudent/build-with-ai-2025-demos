@@ -30,6 +30,14 @@ export class AppNavComponent {
       link: '/cv-analyzer',
     }, 
     {
+      name: 'Coder Q&A',
+      link: '/coder-qa',
+    }, 
+    {
+      name: 'Vision Q&A',
+      link: '/vision-qa',
+    }, 
+    {
       name: 'Web LLM Model List',
       link: '/llm-model-list'
     }
