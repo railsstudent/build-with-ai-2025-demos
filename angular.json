@@ -17,7 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/webllm-resume-demo",
+            "outputPath": {
+              "base": "dist/webllm-resume-demo",
+              "browser": ""
+            },
             "index": "projects/webllm-resume-demo/src/index.html",
             "browser": "projects/webllm-resume-demo/src/main.ts",
             "polyfills": [],
@@ -53,7 +56,8 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "https://railsstudent.github.io/build-with-ai-2025-demos/webllm-resume-demo/"
             },
             "development": {
               "optimization": false,
