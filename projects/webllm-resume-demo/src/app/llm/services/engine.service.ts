@@ -1,7 +1,8 @@
-import { computed, Injectable, Injector, resource, signal } from '@angular/core';
+import { computed, inject, Injectable, Injector, resource, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { CreateMLCEngine, InitProgressReport, MLCEngineConfig } from '@mlc-ai/web-llm';
 import { switchMap, tap } from 'rxjs';
+import { AppConfigService } from './app-config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,8 @@ export class EngineService {
   ready = computed(() => this.#progress() === 1);
   engineError = signal('');
 
+  appConfigService = inject(AppConfigService);
+
   createProgressResource(injector: Injector) {
     const res = resource({
       stream: async () => this.#progressText,
@@ -36,6 +39,7 @@ export class EngineService {
   async #loadEngine(model: string) {
     try {
       const engineConfig: MLCEngineConfig = { 
+        appConfig: this.appConfigService.appConfig,
         initProgressCallback: (report: InitProgressReport) => { 
           this.#progress.set(report.progress);
           this.#progressText.set({ value: report.text });
