@@ -2,13 +2,15 @@ import { computed, inject, Injectable, Injector, resource, signal } from '@angul
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { CreateMLCEngine, InitProgressReport, MLCEngineConfig } from '@mlc-ai/web-llm';
 import { switchMap, tap } from 'rxjs';
+import { LLMModel } from '../types/llm-model.type';
 import { AppConfigService } from './app-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EngineService {
-  models = signal([
+  models = signal<LLMModel[]>([
+    { model: '', name: ''},
     { model: 'gemma-2-2b-it-q4f32_1-MLC', name: 'gemma-2-2b-it' },
     { model: 'gemma-2-9b-it-q4f32_1-MLC', name: 'gemma-2-9b-it'},
     { model: 'Llama-3.2-3B-Instruct-q4f32_1-MLC', name: 'Llama-3.2-3B-Instruct' },
@@ -38,6 +40,10 @@ export class EngineService {
 
   async #loadEngine(model: string) {
     try {
+      if (!model) {
+        return undefined;
+      }
+
       const engineConfig: MLCEngineConfig = { 
         appConfig: this.appConfigService.appConfig,
         initProgressCallback: (report: InitProgressReport) => { 
@@ -58,13 +64,12 @@ export class EngineService {
     }
   }
 
-  createEngineSignal(injector: Injector) {
-    const engine$ = toObservable(this.selectedModel, { injector })
+  createEngine(injector: Injector) {
+    return toObservable(this.selectedModel, { injector })
       .pipe(
         tap(() => this.engineError.set('')),
         switchMap(async ({ model }) => this.#loadEngine(model)),
         tap((engine) => console.log('Loaded engine', engine))
       );
-    return toSignal(engine$, { injector });
   }
 }

@@ -8,6 +8,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideExperimentalZonelessChangeDetection(),
     provideRouter(routes),
-    provideCacheUsageConfig({ useIndexDB: true })
+    provideCacheUsageConfig({ useIndexDB: false })
   ]
 };

@@ -6,12 +6,17 @@ import { EngineService } from '../services/engine.service';
   selector: 'app-llm-select-model',
   imports: [FormsModule],
   template: `
-    <label for="models">Models: </label>
-    <select id="models" name="models" [(ngModel)]="selectedModel">
-      @for (model of models(); track model) {
-        <option [ngValue]="model">{{ model.name }}</option>
-      }
-    </select>
+    <div style="margin-bottom:0.5rem;">
+      <label for="models">
+        <ng-content>Models: </ng-content>
+      </label>
+      <select id="models" name="models" [(ngModel)]="selectedModel">
+        @for (model of models(); track model) {
+          @let text = model.name ? model.name : '-------';
+          <option [ngValue]="model">{{ text }}</option>
+        }
+      </select>
+    </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
