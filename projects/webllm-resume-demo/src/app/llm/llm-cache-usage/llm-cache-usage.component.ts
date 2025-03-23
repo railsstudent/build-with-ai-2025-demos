@@ -1,17 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject, Injector, signal } from '@angular/core';
+import { deleteModelAllInfoInCache, hasModelInCache } from '@mlc-ai/web-llm';
 import { LlmSelectModelComponent } from '../llm-select-model/llm-select-model.component';
 import { EngineService } from '../services/engine.service';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-llm-cache-usage',
   imports: [LlmSelectModelComponent],
   template: `
     <app-llm-select-model [(selectedModel)]="selectedModel" />
-    @if (error()) {
-      <label for="error">Error:&nbsp;&nbsp;</label>
-      <span class='error' id="error" name="error">{{ error() }}</span>
+    @if (engineError()) {
+      <div>
+        <label for="error">Engine Error:&nbsp;&nbsp;</label>
+        <span class='error' id="error" name="error">{{ engineError() }}</span>
+      </div>
     } @else {
       @if (progressResource.error()) {
           <p class='error'>Error: {{ progressResource.error() }}</p>
@@ -19,8 +20,20 @@ import { switchMap } from 'rxjs';
           <p>Progress: {{ progressResource.value() }}</p>
       } 
       Ready: {{ ready()}}
+      <div style="display: flex; justify-content: space-between;">
+        <button (click)="unloadCache()">Unload cache</button>
+        @let modelName = selectedModel().name;
+        <button (click)="reloadModel()">Reload {{ modelName }} to engine</button>
+        <button (click)="deleteModelFromCache()">Delete {{ modelName }}</button>
+        <button (click)="deleteAllModelsFomCache()">Delete all models from cache</button>
+      </div>
     }
   `,
+   styles: `
+   .error {
+     color: red;
+   }
+ `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LlmCacheUsageComponent {
@@ -28,16 +41,38 @@ export class LlmCacheUsageComponent {
   engineService = inject(EngineService);
 
   models = this.engineService.models;
-  selectedModel = signal(this.models()[0]);
+  selectedModel = this.engineService.selectedModel;
 
   progressResource = this.engineService.createProgressResource(this.injector);
   ready = this.engineService.ready;
   
-  error = signal('');
+  engine = this.engineService.createEngineSignal(this.injector);
+  engineError = this.engineService.engineError;
 
-  #engine$ = toObservable(this.selectedModel)
-    .pipe(
-      switchMap(async (model) => this.engineService.loadEngine(model))
-    );
-  engine = toSignal(this.#engine$);
+  async unloadCache() {
+    await this.engine()?.unload();
+    console.log('Unload engine')
+  }
+
+  async deleteModelFromCache() {
+    await this.#deleteModelFromCacheById(this.selectedModel().model);
+  }
+
+  async #deleteModelFromCacheById(model: string) {
+    if (await hasModelInCache(model)) {
+      await deleteModelAllInfoInCache(model);
+      console.log(`Delete ${model} from the cache`);
+    }
+  }
+
+  async deleteAllModelsFomCache() {
+    const promises = this.models().map(({ model }) => 
+      this.#deleteModelFromCacheById(model));
+    
+    await Promise.allSettled(promises);
+  }
+
+  async reloadModel() {
+    await this.engine()?.reload(this.selectedModel().model);
+  }
 }

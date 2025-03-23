@@ -9,7 +9,7 @@ import { EngineService } from '../services/engine.service';
     <label for="models">Models: </label>
     <select id="models" name="models" [(ngModel)]="selectedModel">
       @for (model of models(); track model) {
-        <option [value]="model">{{ model }}</option>
+        <option [ngValue]="model">{{ model.name }}</option>
       }
     </select>
   `,
