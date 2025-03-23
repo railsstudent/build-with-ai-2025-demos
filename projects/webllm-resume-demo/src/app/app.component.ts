@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { CVAnalyzerComponent } from './llm/cv-analyser/cv-analyzer.component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { AppNavComponent } from './app-nav/app-nav.component';
 import { WebLLMResourcesComponent } from './llm/resources/resources.component';
 
 @Component({
   selector: 'app-root',
-  imports: [CVAnalyzerComponent, WebLLMResourcesComponent],
+  imports: [AppNavComponent, RouterOutlet, WebLLMResourcesComponent],
   template: `
-    <app-cv-analyser />
+    <app-app-nav />
+    <router-outlet />
     <app-webllm-resources />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

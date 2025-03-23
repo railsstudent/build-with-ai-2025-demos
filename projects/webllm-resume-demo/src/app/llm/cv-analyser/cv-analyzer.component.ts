@@ -1,16 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { LlmCacheUsageComponent } from '../llm-cache-usage/llm-cache-usage.component';
 
 @Component({
   selector: 'app-cv-analyser',
-  imports: [FormsModule, LlmCacheUsageComponent],
-  templateUrl: './cv-analyzer.component.html',
-  styles: `
-    .error {
-      color: red;
-    }
+  imports: [LlmCacheUsageComponent],
+  template: `
+    <h2>CV Analyzer LLM</h2>
+    <app-llm-cache-usage />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CVAnalyzerComponent {}
+export default class CVAnalyzerComponent {}

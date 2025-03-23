@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Injector, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Injector } from '@angular/core';
 import { deleteModelAllInfoInCache, hasModelInCache } from '@mlc-ai/web-llm';
 import { LlmSelectModelComponent } from '../llm-select-model/llm-select-model.component';
 import { EngineService } from '../services/engine.service';
@@ -21,19 +21,13 @@ import { EngineService } from '../services/engine.service';
       } 
       Ready: {{ ready()}}
       <div style="display: flex; justify-content: space-between;">
-        <button (click)="unloadCache()">Unload cache</button>
         @let modelName = selectedModel().name;
         <button (click)="reloadModel()">Reload {{ modelName }} to engine</button>
         <button (click)="deleteModelFromCache()">Delete {{ modelName }}</button>
-        <button (click)="deleteAllModelsFomCache()">Delete all models from cache</button>
+        <button (click)="deleteAllModelsFomCache()">Delete all models</button>
       </div>
     }
   `,
-   styles: `
-   .error {
-     color: red;
-   }
- `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LlmCacheUsageComponent {
@@ -48,11 +42,6 @@ export class LlmCacheUsageComponent {
   
   engine = this.engineService.createEngineSignal(this.injector);
   engineError = this.engineService.engineError;
-
-  async unloadCache() {
-    await this.engine()?.unload();
-    console.log('Unload engine')
-  }
 
   async deleteModelFromCache() {
     await this.#deleteModelFromCacheById(this.selectedModel().model);
