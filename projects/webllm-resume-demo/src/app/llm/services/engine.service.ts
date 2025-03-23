@@ -1,7 +1,8 @@
 import { computed, inject, Injectable, Injector, resource, signal } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { CreateMLCEngine, InitProgressReport, MLCEngineConfig } from '@mlc-ai/web-llm';
 import { switchMap, tap } from 'rxjs';
+import { APP_STATE_TOKEN } from '../../app-state.constant';
 import { LLMModel } from '../types/llm-model.type';
 import { AppConfigService } from './app-config.service';
 
@@ -29,6 +30,8 @@ export class EngineService {
   engineError = signal('');
 
   appConfigService = inject(AppConfigService);
+
+  #isLoading = inject(APP_STATE_TOKEN).isLoading;
 
   createProgressResource(injector: Injector) {
     const res = resource({
@@ -67,9 +70,15 @@ export class EngineService {
   createEngine(injector: Injector) {
     return toObservable(this.selectedModel, { injector })
       .pipe(
-        tap(() => this.engineError.set('')),
+        tap(() => {
+          this.engineError.set('');
+          this.#isLoading.set(true);
+        }),
         switchMap(async ({ model }) => this.#loadEngine(model)),
-        tap((engine) => console.log('Loaded engine', engine))
+        tap((engine) => {
+          console.log('Loaded engine', engine);
+          this.#isLoading.set(false);
+        }),
       );
   }
 }

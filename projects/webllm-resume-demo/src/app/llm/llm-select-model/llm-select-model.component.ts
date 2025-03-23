@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { APP_STATE_TOKEN } from '../../app-state.constant';
 import { EngineService } from '../services/engine.service';
 
 @Component({
@@ -10,7 +11,8 @@ import { EngineService } from '../services/engine.service';
       <label for="models">
         <ng-content>Models: </ng-content>
       </label>
-      <select id="models" name="models" [(ngModel)]="selectedModel">
+      {{ isLoading() }}
+      <select id="models" name="models" [(ngModel)]="selectedModel" [disabled]="isLoading()">
         @for (model of models(); track model) {
           @let text = model.name ? model.name : '-------';
           <option [ngValue]="model">{{ text }}</option>
@@ -22,6 +24,7 @@ import { EngineService } from '../services/engine.service';
 })
 export class LlmSelectModelComponent {
   engineService = inject(EngineService);
+  isLoading = inject(APP_STATE_TOKEN).isLoading;
 
   models = this.engineService.models;
   selectedModel = model(this.models()[0]);
