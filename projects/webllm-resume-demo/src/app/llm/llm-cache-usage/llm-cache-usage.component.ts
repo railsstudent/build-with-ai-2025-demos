@@ -3,10 +3,11 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { LlmDeleteCacheComponent } from '../llm-delete-cache/llm-delete-cache.component';
 import { LlmSelectModelComponent } from '../llm-select-model/llm-select-model.component';
 import { EngineService } from '../services/engine.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-llm-cache-usage',
-  imports: [LlmSelectModelComponent, LlmDeleteCacheComponent],
+  imports: [LlmSelectModelComponent, LlmDeleteCacheComponent, AsyncPipe],
   template: `
     <app-llm-select-model [(selectedModel)]="selectedModel" />
     @if (engineError()) {
@@ -20,7 +21,7 @@ import { EngineService } from '../services/engine.service';
       } @else if (progressResource.hasValue()) {
           <p>Download Model Progress: {{ progressResource.value() }}</p>
       } 
-      <app-llm-delete-cache [models]="models()" />
+      <app-llm-delete-cache [models]="models()" [engine]="engine$ | async" />
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

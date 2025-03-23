@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, OnInit, signal } from '@angular/core';
-import { deleteModelAllInfoInCache, hasModelInCache } from '@mlc-ai/web-llm';
+import { deleteModelAllInfoInCache, hasModelInCache, MLCEngine } from '@mlc-ai/web-llm';
 import { LLMModel } from '../types/llm-model.type';
 import { LlmSelectModelComponent } from '../llm-select-model/llm-select-model.component';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-llm-delete-cache',
@@ -24,6 +23,7 @@ import { JsonPipe } from '@angular/common';
 export class LlmDeleteCacheComponent implements OnInit {
   models = input.required<LLMModel[]>();
   selectedModel = signal<LLMModel>({ name: '', model: ''});
+  engine = input<MLCEngine | undefined>(undefined);
 
   ngOnInit(): void {
     this.selectedModel.set(this.models()[0]);
@@ -49,5 +49,6 @@ export class LlmDeleteCacheComponent implements OnInit {
       this.#deleteModelFromCacheById(model));
     
     await Promise.allSettled(promises);
+    await this.engine()?.unload();
   }
 }
