@@ -10,8 +10,8 @@ export const routes: Routes = [
         loadComponent: () => import('./llm/coder-qa/coder-qa.component')
     },
     {
-        path: 'vision-qa',
-        loadComponent: () => import('./llm/vision-qa/vision-qa.component')
+        path: 'math-qa',
+        loadComponent: () => import('./llm/math-qa/math-qa.component')
     },
     {
         path: 'llm-model-list',

@@ -1,13 +1,10 @@
 div.layout {
     display: flex; 
+    justify-content: flex-start;
 }
 
 div.layout > div {
-    flex: 1 1 calc(100% * 2 / 3);
-}
-
-div.layout > button {
-    flex: 1 1 calc(100% / 3);
+    flex: 0 1 calc(100% / 3);
 }
 
 div.delete-dropdown {

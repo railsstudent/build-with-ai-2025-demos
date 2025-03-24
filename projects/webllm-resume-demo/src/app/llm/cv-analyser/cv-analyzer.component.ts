@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { LlmCacheUsageComponent } from '../llm-cache-usage/llm-cache-usage.component';
-import { LLM_MODEL_LIST } from '../llm-models.constant';
+import { LLM_MODEL_LIST, MODEL_LIST_PROVIDER } from '../llm-models.constant';
 import { EngineService } from '../services/engine.service';
 
 @Component({
@@ -10,15 +10,8 @@ import { EngineService } from '../services/engine.service';
     <h2>CV Analyzer LLM</h2>
     <app-llm-cache-usage />
   `,
-  providers: [
-    {
-      provide: LLM_MODEL_LIST,
-      useFactory: () => {
-        const service = inject(EngineService);
-        return service.models;
-      }
-    },
-  ],
+  providers: [MODEL_LIST_PROVIDER]
+,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CVAnalyzerComponent {}

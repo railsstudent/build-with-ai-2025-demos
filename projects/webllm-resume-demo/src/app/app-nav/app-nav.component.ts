@@ -34,8 +34,8 @@ export class AppNavComponent {
       link: '/coder-qa',
     }, 
     {
-      name: 'Vision Q&A',
-      link: '/vision-qa',
+      name: 'Math Q&A',
+      link: '/math-qa',
     }, 
     {
       name: 'Web LLM Model List',

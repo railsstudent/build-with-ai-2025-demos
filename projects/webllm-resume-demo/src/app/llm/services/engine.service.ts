@@ -10,26 +10,6 @@ import { AppConfigService } from './app-config.service';
   providedIn: 'root'
 })
 export class EngineService {
-  models: LLMModel[] = [
-    { model: '', name: ''},
-    { model: 'gemma-2-2b-it-q4f32_1-MLC', name: 'gemma-2-2b-it' },
-    { model: 'gemma-2-9b-it-q4f32_1-MLC', name: 'gemma-2-9b-it'},
-    { model: 'Llama-3.2-3B-Instruct-q4f32_1-MLC', name: 'Llama-3.2-3B-Instruct' },
-    { model: 'Mistral-7B-Instruct-v0.3-q4f32_1-MLC', name: 'Mistral-7B-Instruct-v0.3' },
-    { model: 'DeepSeek-R1-Distill-Llama-8B-q4f32_1-MLC', name: 'DeepSeek-R1-Distill-Llama-8B' },
-  ];
-
-  vision_models: LLMModel[] = [
-    { model: '', name: ''},
-    { model: 'Phi-3.5-vision-instruct-q4f32_1-MLC', name: 'Phi-3.5-vision-instruct' },
-  ];
-
-  code_models: LLMModel[] = [
-    { model: '', name: ''},
-    { model: 'Qwen2.5-Coder-1.5B-Instruct-q4f32_1-MLC', name: 'Qwen2.5-Coder-1.5B-Instruct' },
-    { model: 'Qwen2.5-Coder-3B-Instruct-q4f32_1-MLC', name: 'Qwen2.5-Coder-3B-Instruct' },
-  ];
-  
   #progress = signal(0);
   #progressText = signal({ value: '' });
 
