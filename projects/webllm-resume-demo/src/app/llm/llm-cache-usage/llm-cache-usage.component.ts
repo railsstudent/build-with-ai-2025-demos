@@ -77,5 +77,5 @@ export class LlmCacheUsageComponent {
   progress = this.engineService.progress;
   engine$ = this.engineService.createEngine(this.selectedModel, this.injector);
   engineError = this.engineService.engineError;
-  selectEngine = outputFromObservable(this.engine$);
+  selectedEngine = outputFromObservable(this.engine$);
 }
