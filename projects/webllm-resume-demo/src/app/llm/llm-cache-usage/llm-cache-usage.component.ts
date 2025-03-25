@@ -14,7 +14,7 @@ import { LLMModel } from './../types/llm-model.type';
   imports: [LlmSelectModelComponent, 
     LlmDeleteCacheComponent, 
     AsyncPipe, 
-    LlmCachedModelListComponent,
+    // LlmCachedModelListComponent,
   ],
   template: `
     <app-llm-select-model [(selectedModel)]="selectedModel" />
@@ -31,7 +31,7 @@ import { LLMModel } from './../types/llm-model.type';
       } 
       <app-llm-delete-cache [engine]="engine$ | async" 
         (cacheChanged)="deletedModel.set($event)" />
-      <app-llm-cached-model-list [allModels]="models" [cacheModelIds]="cachedModelIdsResource.value()" />
+      <!-- <app-llm-cached-model-list [allModels]="models" [cacheModelIds]="cachedModelIdsResource.value()" /> -->
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

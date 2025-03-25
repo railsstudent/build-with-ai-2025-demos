@@ -5,10 +5,10 @@ import { EngineService } from '../services/engine.service';
 
 @Component({
   selector: 'app-cv-analyser',
-  imports: [LlmCacheUsageComponent],
+  // imports: [LlmCacheUsageComponent],
   template: `
     <h2>CV Analyzer LLM</h2>
-    <app-llm-cache-usage />
+    <!-- <app-llm-cache-usage /> -->
   `,
   providers: [MODEL_LIST_PROVIDER]
 ,
