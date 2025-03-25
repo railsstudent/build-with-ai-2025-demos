@@ -6,15 +6,15 @@ import { MLCEngine } from '@mlc-ai/web-llm';
 
 @Component({
   selector: 'app-coder-qa',
-  imports: [LlmCacheUsageComponent, LlmResponseComponent],
+  // imports: [LlmCacheUsageComponent, LlmResponseComponent],
   template: `
-    <h2>Code LLM</h2>
-    <app-llm-cache-usage (selectedEngine)="engine.set($event)" />
+    <h2>Coder LLM</h2>
+    <!-- <app-llm-cache-usage (selectedEngine)="engine.set($event)" />
     @if (engine()) {
       <app-llm-response [engine]="engine()" [systemPrompt]="systemPrompt()" />
     } @else {
       <p>--- No engine loaded ---</p>
-    }
+    } -->
   `,
   providers: [CODER_MODEL_LIST_PROVIDER],
   changeDetection: ChangeDetectionStrategy.OnPush,
