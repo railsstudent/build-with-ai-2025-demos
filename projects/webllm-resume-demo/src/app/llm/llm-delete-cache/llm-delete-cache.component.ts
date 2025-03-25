@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
 import { deleteModelAllInfoInCache, hasModelInCache, MLCEngine } from '@mlc-ai/web-llm';
 import { APP_STATE_TOKEN } from '../../app-state/app-state.constant';
 import { LLM_MODEL_LIST } from '../llm-models.constant';
@@ -29,6 +29,8 @@ export class LlmDeleteCacheComponent {
   selectedModel = signal<LLMModel>(this.models[0]);
   engine = input<MLCEngine | undefined | null>(undefined);
 
+  cacheChanged = output<string>();
+
   async deleteModelFromCache() {
     try {
       this.isLoading.set(true);
@@ -46,6 +48,8 @@ export class LlmDeleteCacheComponent {
     if (await hasModelInCache(model)) {
       await deleteModelAllInfoInCache(model);
       console.log(`Delete ${model} from the cache`);
+
+      this.cacheChanged.emit(model);
     }
   }
 

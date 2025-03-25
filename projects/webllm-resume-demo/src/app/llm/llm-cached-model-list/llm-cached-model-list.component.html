@@ -1,0 +1,9 @@
+<p>llm-cached-model-list works!</p>
+@if (cacheModelIds().length > 0) {
+    <h3>Cached Models</h3>
+    <ol>
+        @for (m of cacheModelIds(); track m) {
+            <li>{{ m }}</li>
+        }
+    </ol>
+}

@@ -13,7 +13,7 @@ export class EngineService {
   #progress = signal(0);
   #progressText = signal({ value: '' });
 
-  ready = computed(() => this.#progress() === 1);
+  progress = this.#progress.asReadonly();
   engineError = signal('');
 
   appConfigService = inject(AppConfigService);
