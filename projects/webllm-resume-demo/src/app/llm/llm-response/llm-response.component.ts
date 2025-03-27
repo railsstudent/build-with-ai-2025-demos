@@ -7,7 +7,7 @@ import { APP_STATE_TOKEN } from '../../app-state/app-state.constant';
   selector: 'app-llm-response',
   imports: [FormsModule],
   template: `
-    <h3>Ask a question</h3>
+    <h3><ng-content select='[title]'>Ask a question</ng-content></h3>
     <div>
       <label for="systemPrompt">System Prompt:&nbsp;&nbsp;</label>
       <span id="systemPrompt" name="systemPrompt">{{ systemPrompt() }}</span>

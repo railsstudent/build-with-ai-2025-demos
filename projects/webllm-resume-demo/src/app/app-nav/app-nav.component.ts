@@ -26,15 +26,15 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class AppNavComponent {
   links = signal([
     {
-      name: 'CV Analyzer',
-      link: '/cv-analyzer',
+      name: 'CV Q&A',
+      link: '/cv-qa',
     }, 
     {
-      name: 'Coder Q&A',
+      name: 'Coder Tasks',
       link: '/coder-qa',
     }, 
     {
-      name: 'Math Q&A',
+      name: 'Math Tasks',
       link: '/math-qa',
     }, 
     {

@@ -7,7 +7,7 @@ import { EngineService } from '../services/engine.service';
   selector: 'app-cv-qa',
   imports: [LlmCacheUsageComponent],
   template: `
-    <h2>CV Analyzer LLM</h2>
+    <h2>CV Question and Answering</h2>
     <app-llm-cache-usage />
   `,
   providers: [MODEL_LIST_PROVIDER]

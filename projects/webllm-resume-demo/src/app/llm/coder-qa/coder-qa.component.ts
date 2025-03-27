@@ -11,7 +11,9 @@ import { MLCEngine } from '@mlc-ai/web-llm';
     <h2>Coder LLM</h2>
     <app-llm-cache-usage (selectedEngine)="engine.set($event)" />
     @if (engine()) {
-      <app-llm-response [engine]="engine()" [systemPrompt]="systemPrompt()" />
+      <app-llm-response [engine]="engine()" [systemPrompt]="systemPrompt()">
+        <ng-container title>Let's write some code</ng-container>
+      </app-llm-response>
     } @else {
       <p>--- No engine loaded ---</p>
     }
