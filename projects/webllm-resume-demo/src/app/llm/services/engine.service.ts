@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, Injector, resource, signal, WritableSignal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { CreateMLCEngine, InitProgressReport, MLCEngineConfig } from '@mlc-ai/web-llm';
-import { switchMap, tap } from 'rxjs';
+import { shareReplay, switchMap, tap } from 'rxjs';
 import { APP_STATE_TOKEN } from '../../app-state/app-state.constant';
 import { LLMModel } from '../types/llm-model.type';
 import { AppConfigService } from './app-config.service';
@@ -66,6 +66,10 @@ export class EngineService {
           console.log('Loaded engine', engine);
           this.#isLoading.set(false);
         }),
+        shareReplay({
+          bufferSize: 1,
+          refCount: true
+        })
       );
   }
 }
