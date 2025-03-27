@@ -4,7 +4,7 @@ import { LLM_MODEL_LIST, MODEL_LIST_PROVIDER } from '../llm-models.constant';
 import { EngineService } from '../services/engine.service';
 
 @Component({
-  selector: 'app-cv-analyser',
+  selector: 'app-cv-qa',
   imports: [LlmCacheUsageComponent],
   template: `
     <h2>CV Analyzer LLM</h2>

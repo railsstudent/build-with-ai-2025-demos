@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
     {
-        path: 'cv-analyzer',
-        loadComponent: () => import('./llm/cv-analyser/cv-analyzer.component')
+        path: 'cv-qa',
+        loadComponent: () => import('./llm/cv-qa/cv-qa.component')
     },
     {
         path: 'coder-qa',
@@ -19,11 +19,11 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: 'cv-analyzer',
+        redirectTo: 'cv-qa',
         pathMatch: 'full'   
     },
     {
         path: '**',
-        redirectTo: 'cv-analyzer'
+        redirectTo: 'cv-qa'
     }
 ];
