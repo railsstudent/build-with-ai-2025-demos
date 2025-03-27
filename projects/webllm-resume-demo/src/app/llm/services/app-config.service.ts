@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { WEB_LLM_CACHE_CONFIG } from '../llm-cache-usage/cache-uage.constant';
+import { WEB_LLM_CACHE_CONFIG } from '../llm-cache-usage/cache-usage.constant';
 
 @Injectable({
   providedIn: 'root'
