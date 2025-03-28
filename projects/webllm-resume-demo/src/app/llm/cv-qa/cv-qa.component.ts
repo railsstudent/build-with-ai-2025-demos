@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MLCEngine } from '@mlc-ai/web-llm';
+import { CvContentComponent } from '../cv-content/cv-content.component';
 import { LlmCacheUsageComponent } from '../llm-cache-usage/llm-cache-usage.component';
 import { MODEL_LIST_PROVIDER } from '../llm-models.constant';
 import { LlmResponseComponent } from '../llm-response/llm-response.component';
-import { FormsModule } from '@angular/forms';
-import { CvContentComponent } from '../cv-content/cv-content.component';
 
 @Component({
   selector: 'app-cv-qa',
