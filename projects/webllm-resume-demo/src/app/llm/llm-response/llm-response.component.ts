@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ChatCompletionMessageParam, MLCEngine } from '@mlc-ai/web-llm';
 import { APP_STATE_TOKEN } from '../../app-state/app-state.constant';
 import { CvContentComponent } from '../cv-content/cv-content.component';
+import DOMPurify from 'dompurify';
 
 @Component({
   selector: 'app-llm-response',
@@ -37,6 +38,10 @@ export class LlmResponseComponent {
   ]));
 
   isLoading = inject(APP_STATE_TOKEN).isLoading;
+
+  constructor() {
+    console.log(DOMPurify);
+  }
 
   async generateAnswer() {
     try {
