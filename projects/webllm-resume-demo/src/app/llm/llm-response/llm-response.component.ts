@@ -7,26 +7,11 @@ import { CvContentComponent } from '../cv-content/cv-content.component';
 @Component({
   selector: 'app-llm-response',
   imports: [FormsModule],
-  template: `
-    <h3><ng-content select='[title]'>Ask a question</ng-content></h3>
-    <div>
-      <label for="systemPrompt">System Prompt:&nbsp;&nbsp;</label>
-      <span id="systemPrompt" name="systemPrompt">{{ systemPrompt() }}</span>
-    </div>
-    <div>
-        <ng-content select='[context]' />
-    </div>
-    <div>
-      <label for="query">Query:&nbsp;&nbsp;</label>
-      <textarea id="query" name="query" [(ngModel)]="query" [disabled]="isLoading()"></textarea>
-    </div>
-    @let text = isLoading() ? 'Generating...' : 'Ask';
-    <button (click)="generateAnswer()" [disabled]="isLoading()">{{ text }}</button>
-  `,
+  templateUrl: './llm-response.component.html',
   styles: `
     textarea {
       width: 100%;
-      height: 100px;
+      height: 5rem;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
