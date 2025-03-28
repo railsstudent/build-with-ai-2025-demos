@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChild, inject, input, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChatCompletionMessageParam, MLCEngine } from '@mlc-ai/web-llm';
 import { APP_STATE_TOKEN } from '../../app-state/app-state.constant';
+import { CvContentComponent } from '../cv-content/cv-content.component';
 
 @Component({
   selector: 'app-llm-response',
@@ -13,12 +14,14 @@ import { APP_STATE_TOKEN } from '../../app-state/app-state.constant';
       <span id="systemPrompt" name="systemPrompt">{{ systemPrompt() }}</span>
     </div>
     <div>
+        <ng-content select='[context]' />
+    </div>
+    <div>
       <label for="query">Query:&nbsp;&nbsp;</label>
       <textarea id="query" name="query" [(ngModel)]="query" [disabled]="isLoading()"></textarea>
     </div>
     @let text = isLoading() ? 'Generating...' : 'Ask';
     <button (click)="generateAnswer()" [disabled]="isLoading()">{{ text }}</button>
-    
   `,
   styles: `
     textarea {
@@ -31,10 +34,20 @@ import { APP_STATE_TOKEN } from '../../app-state/app-state.constant';
 export class LlmResponseComponent {
   engine = input.required<MLCEngine | undefined>();
   systemPrompt = input.required<string>();
-  query = signal('Please write a function to add two numbers and return the result. Please do not use any built-in function.');
+  query = model('');
+  
+  candidateCV = contentChild(CvContentComponent);
+  candidateCVText = computed(() => this.candidateCV()?.cv() || '');
+
+  systemPromptWithContext = computed(() => {
+    if (this.candidateCVText()) {
+      return `${this.systemPrompt()}\n\nThe following is the context:\n\n${this.candidateCVText()}`;
+    }
+    return this.systemPrompt();
+  })
   
   messages = computed<ChatCompletionMessageParam[]>(() => ([
-    { role: "system", content: this.systemPrompt() },
+    { role: "system", content: this.systemPromptWithContext() },
     { role: "user", content: this.query() },
   ]));
 
