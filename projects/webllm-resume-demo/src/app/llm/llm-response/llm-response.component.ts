@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, contentChild, inject, inp
 import { FormsModule } from '@angular/forms';
 import { ChatCompletionMessageParam, MLCEngine } from '@mlc-ai/web-llm';
 import { APP_STATE_TOKEN } from '../../app-state/app-state.constant';
-import { CvContentComponent } from '../cv-content/cv-content.component';
+import { CvContentComponent } from '../cv-qa/components/cv-content.component';
 import DOMPurify from 'dompurify';
 
 @Component({
@@ -23,7 +23,7 @@ export class LlmResponseComponent {
   query = model('');
   
   candidateCV = contentChild(CvContentComponent);
-  candidateCVText = computed(() => this.candidateCV()?.cv() || '');
+  candidateCVText = computed(() => this.candidateCV()?.editableCv() || '');
 
   systemPromptWithContext = computed(() => {
     if (this.candidateCVText()) {

@@ -1,10 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CandidateService {
-  #candidateCv = signal(`Connie Leung
+  #candidateCv = new BehaviorSubject(`Connie Leung
 (555) 123-4567 | connie.leung@email.com | linkedin.com/in/connieleung | github.com/connieleung | connieleung.portfolio.com
 
 Summary
@@ -12,7 +13,9 @@ Highly motivated and results-oriented Frontend Engineer with 6+ years of experie
 
 Skills
 - Languages: JavaScript (ES6+), TypeScript, HTML5, CSS3
-- Frameworks/Libraries: Vue 3 (Composition API, Vue Router, Pinia), Quasar, Nuxt.js, React, Redux, Material-UI
+- Frameworks/Libraries: Vue 3 (Composition API, Composable, Vue Router, Pinia), React, Redux
+- Meta Frameworks: Nuxt.js, Next.js
+- UI Frameworks/Libraries: Quasar, Material-UI
 - Styling: Tailwind CSS, SCSS, CSS Modules, Styled Components
 - State Management: Pinia, Redux
 - Build Tools/Package Managers: Vite, npm
@@ -24,19 +27,19 @@ Skills
 - Deployment:  Github Page, Netlify
 
 Experience
-Innovate Solutions, San Francisco, CA – Senior Frontend Engineer 2023 – Present
+Innovate Solutions, Hong Kong – Senior Frontend Engineer 2023 – Present
 - Led the development of a new marketing website using Nuxt.js 3 and TypeScript, resulting in a 20% increase in lead generation.
 - Implemented serverless functions for form submissions and data processing, improving scalability and reducing costs.
 - Mentored junior developers and provided technical guidance on best practices.
 - Collaborated with designers to create a visually appealing and user-friendly interface.
 
-Tech Solutions Inc., San Francisco, CA – Frontend Engineer 2021 – 2023 (2 years)
+Tech Solutions Inc., Hong Kong – Frontend Engineer 2021 – 2023 (2 years)
 - Led the development of a new user dashboard feature using Vue 3 and TypeScript, resulting in a 15% increase in user engagement.
 - Implemented responsive designs using Tailwind CSS, ensuring optimal user experience across all devices.
 - Wrote unit and integration tests using Jest and Cypress, achieving 90% test coverage.
 - Optimized frontend performance by implementing lazy loading of images, improving initial page load times by 20%.
 
-WebDev Innovations, New York, NY – Junior Frontend Developer 2019 – 2021 (2 years)
+WebDev Innovations, Connie Leung – Junior Frontend Developer 2019 – 2021 (2 years)
 - Developed and maintained key features for a React-based e-commerce application, utilizing Redux for state management and Material-UI.
 - Improved website accessibility by implementing ARIA attributes and adhering to WCAG guidelines.
 - Assisted senior developers in debugging and resolving frontend issues.
@@ -47,5 +50,9 @@ WebDev Innovations, New York, NY – Junior Frontend Developer 2019 – 2021 (2 
 - Learned about version control using Git and collaborated on team projects using GitHub.    
 `);
 
-  cv = this.#candidateCv.asReadonly();
+  candidateCv$ = this.#candidateCv.asObservable();
+
+  // getCv() {
+  //   return of(this.#candidateCv);
+  // }
 }

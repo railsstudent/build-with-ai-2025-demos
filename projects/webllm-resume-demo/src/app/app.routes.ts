@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
     {
         path: 'cv-qa',
-        loadComponent: () => import('./llm/cv-qa/cv-qa.component')
+        loadComponent: () => import('./llm/cv-qa/components/cv-qa.component')
     },
     {
         path: 'coder-qa',

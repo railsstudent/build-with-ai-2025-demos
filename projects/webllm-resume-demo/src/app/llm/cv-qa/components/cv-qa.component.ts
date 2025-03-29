@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MLCEngine } from '@mlc-ai/web-llm';
-import { CvContentComponent } from '../cv-content/cv-content.component';
-import { LlmCacheUsageComponent } from '../llm-cache-usage/llm-cache-usage.component';
-import { MODEL_LIST_PROVIDER } from '../llm-models.constant';
-import { LlmResponseComponent } from '../llm-response/llm-response.component';
+import { CvContentComponent } from './cv-content.component';
+import { LlmCacheUsageComponent } from '../../llm-cache-usage/llm-cache-usage.component';
+import { MODEL_LIST_PROVIDER } from '../../llm-models.constant';
+import { LlmResponseComponent } from '../../llm-response/llm-response.component';
 
 @Component({
   selector: 'app-cv-qa',
@@ -23,7 +23,7 @@ import { LlmResponseComponent } from '../llm-response/llm-response.component';
       <p>--- No engine loaded ---</p>
     }
   `,
-  styleUrl: './cv-qa.component.scss',
+  styleUrl: '../cv-qa.component.scss',
   providers: [MODEL_LIST_PROVIDER],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

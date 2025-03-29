@@ -1,10 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResourcesService {
-  #pages = signal([
+  #pages = new BehaviorSubject([
     {
       title: 'WebLLM Home',
       url: 'https://webllm.mlc.ai/docs'
@@ -27,5 +28,5 @@ export class ResourcesService {
     }
   ]);
 
-  resources = this.#pages.asReadonly();
+  pages$ = this.#pages.asObservable();
 }
