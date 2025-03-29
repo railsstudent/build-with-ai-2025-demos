@@ -36,6 +36,21 @@ ng build --project=webllm-resume-demo
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
+## Deploy to Github Page
+
+To deploy to the github page
+
+- Create a temporary branch, for example, deployment
+- Go to .gitignore and comment out /dist
+- Commit the branch, but do not push
+- Execute the script deploy-github-page.sh
+
+```bash
+./deploy-github-page.sh webllm-resume-demo
+```
+
+Github Page: https://railsstudent.github.io/build-with-ai-2025-demos/webllm-resume-demo
+
 ## Running unit tests
 
 To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
