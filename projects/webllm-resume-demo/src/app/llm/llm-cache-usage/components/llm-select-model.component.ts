@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { APP_STATE_TOKEN } from '../../app-state/app-state.constant';
-import { LLM_MODEL_LIST } from '../llm-models.constant';
-import { EngineService } from '../services/engine.service';
-import { LLMModel } from '../types/llm-model.type';
+import { APP_STATE_TOKEN } from '../../../app-state/app-state.constant';
+import { LLM_MODEL_LIST } from '../../llm-models.constant';
+import { EngineService } from '../../services/engine.service';
+import { LLMModel } from '../../types/llm-model.type';
 
 @Component({
   selector: 'app-llm-select-model',

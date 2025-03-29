@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { LlmCacheUsageComponent } from '../llm-cache-usage/llm-cache-usage.component';
+import { LlmCacheUsageComponent } from '../llm-cache-usage/components/llm-cache-usage.component';
 import { CODER_MODEL_LIST_PROVIDER } from '../llm-models.constant';
 import { LlmResponseComponent } from '../llm-response/llm-response.component';
 import { MLCEngine } from '@mlc-ai/web-llm';

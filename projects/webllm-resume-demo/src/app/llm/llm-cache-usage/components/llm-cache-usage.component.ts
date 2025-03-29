@@ -2,12 +2,12 @@ import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Injector, resource, signal } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { hasModelInCache } from '@mlc-ai/web-llm';
-import { LlmCachedModelListComponent } from '../llm-cached-model-list/llm-cached-model-list.component';
-import { LlmDeleteCacheComponent } from '../llm-delete-cache/llm-delete-cache.component';
-import { LLM_MODEL_LIST } from '../llm-models.constant';
-import { LlmSelectModelComponent } from '../llm-select-model/llm-select-model.component';
-import { EngineService } from '../services/engine.service';
-import { LLMModel } from './../types/llm-model.type';
+import { LlmCachedModelListComponent } from './llm-cached-model-list.component';
+import { LlmDeleteCacheComponent } from './llm-delete-cache.component';
+import { LLM_MODEL_LIST } from '../../llm-models.constant';
+import { LlmSelectModelComponent } from './llm-select-model.component';
+import { EngineService } from '../../services/engine.service';
+import { LLMModel } from '../../types/llm-model.type';
 
 @Component({
   selector: 'app-llm-cache-usage',
