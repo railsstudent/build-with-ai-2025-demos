@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, input, output, signal } fro
 import { deleteModelAllInfoInCache, hasModelInCache, MLCEngine } from '@mlc-ai/web-llm';
 import { APP_STATE_TOKEN } from '../../../app-state/app-state.constant';
 import { LLM_MODEL_LIST } from '../../llm-models.constant';
-import { LlmSelectModelComponent } from './llm-select-model.component';
 import { LLMModel } from '../../types/llm-model.type';
+import { LlmSelectModelComponent } from './llm-select-model.component';
 
 @Component({
   selector: 'app-llm-delete-cache',

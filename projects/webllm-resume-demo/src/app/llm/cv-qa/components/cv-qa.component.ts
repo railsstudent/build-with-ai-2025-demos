@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MLCEngine } from '@mlc-ai/web-llm';
-import { CvContentComponent } from './cv-content.component';
-import { LlmCacheUsageComponent } from '../../llm-cache-usage/components/llm-cache-usage.component';
+import { APP_STATE_TOKEN } from '../../../app-state/app-state.constant';
+import { LlmCacheUsageComponent } from '../../llm-cache-usage';
 import { MODEL_LIST_PROVIDER } from '../../llm-models.constant';
 import { LlmResponseComponent } from '../../llm-response/llm-response.component';
+import { CvContentComponent } from './cv-content.component';
 
 @Component({
   selector: 'app-cv-qa',
@@ -28,7 +29,10 @@ import { LlmResponseComponent } from '../../llm-response/llm-response.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CVQuestionAndAnswerComponent {
+  isLoading = inject(APP_STATE_TOKEN).isLoading;
+
   engine = signal<MLCEngine | undefined>(undefined);
+
   systemPrompt = signal(`You are a recruiter who can answer whether or not a candidate has the technical skill based on the context. 
 If you discover the skill, please reply with "Yes" and quote the job and role. If you cannot find the job, then list the section that the information is found, for example, summary or skill set. 
 When the candidate does not have the skill, please reply with "No, the candidate does not have the skill". If you are not sure, please reply "I do not know" and do not make up answers.`);

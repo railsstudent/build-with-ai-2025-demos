@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input, resource } from '@angular/core';
-import { hasModelInCache } from '@mlc-ai/web-llm';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { LLMModel } from '../../types/llm-model.type';
 
 @Component({

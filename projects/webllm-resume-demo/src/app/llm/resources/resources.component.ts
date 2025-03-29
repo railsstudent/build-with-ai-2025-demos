@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ResourcesService } from './services/resources.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { ResourcesService } from './services/resources.service';
 
 @Component({
   selector: 'app-webllm-resources',

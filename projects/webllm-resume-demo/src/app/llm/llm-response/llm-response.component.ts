@@ -14,6 +14,10 @@ import DOMPurify from 'dompurify';
       width: 100%;
       height: 5rem;
     }
+
+    .class {
+      width: 100%;
+    }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -27,7 +31,12 @@ export class LlmResponseComponent {
 
   systemPromptWithContext = computed(() => {
     if (this.candidateCVText()) {
-      return `${this.systemPrompt()}\n\nThe following is the context:\n\n${this.candidateCVText()}`;
+      return `${this.systemPrompt()}
+      
+The following is the context:
+
+${this.candidateCVText()}
+    `;
     }
     return this.systemPrompt();
   })

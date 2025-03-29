@@ -35,8 +35,10 @@ Innovate Solutions, Hong Kong – Senior Frontend Engineer 2023 – Present
 
 Tech Solutions Inc., Hong Kong – Frontend Engineer 2021 – 2023 (2 years)
 - Led the development of a new user dashboard feature using Vue 3 and TypeScript, resulting in a 15% increase in user engagement.
+- Apply Pinia state management library to persist the application's global state.
 - Implemented responsive designs using Tailwind CSS, ensuring optimal user experience across all devices.
-- Wrote unit and integration tests using Jest and Cypress, achieving 90% test coverage.
+- Wrote unit tests using Vitest and Jest, achieving 90% test coverage.
+- Completed integration test cases with Cypress, achieving 95% test coverage.
 - Optimized frontend performance by implementing lazy loading of images, improving initial page load times by 20%.
 
 WebDev Innovations, Connie Leung – Junior Frontend Developer 2019 – 2021 (2 years)
