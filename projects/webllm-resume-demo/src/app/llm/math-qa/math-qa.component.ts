@@ -26,5 +26,5 @@ export default class MathQAComponent {
   engine = signal<MLCEngine | undefined>(undefined);
   systemPrompt = signal(`You are a helpful assistant who can solve any math problem. When solving equations, please do not consider complex numbers. 
 Provide your reasoning in each step until the final answers are calculated. If you do not know the answer, please reply "I do not know" and stop.`);
-  query = signal('x^4 + x^0 = 82, what is the value of x?');
+  query = signal('x^2 + x^0 = 10, what is the value of x^3?');
 }

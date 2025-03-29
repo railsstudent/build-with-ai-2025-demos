@@ -8,7 +8,7 @@
 </div>
 <div>
     <label for="query">Query:&nbsp;&nbsp;</label>
-    <textarea id="query" name="query" [(ngModel)]="query" [disabled]="isLoading()"></textarea>
+    <input id="query" name="query" [(ngModel)]="query" [disabled]="isLoading()" />
 </div>
 @let text = isLoading() ? 'Generating...' : 'Ask';
 <button (click)="generateAnswer()" [disabled]="isLoading()">{{ text }}</button>

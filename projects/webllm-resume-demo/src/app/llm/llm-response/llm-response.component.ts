@@ -1,24 +1,16 @@
-import { ChangeDetectionStrategy, Component, computed, contentChild, inject, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChild, ElementRef, inject, input, model, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChatCompletionMessageParam, MLCEngine } from '@mlc-ai/web-llm';
+import DOMPurify from 'dompurify';
+import * as smd from "streaming-markdown";
 import { APP_STATE_TOKEN } from '../../app-state/app-state.constant';
 import { CvContentComponent } from '../cv-qa/components/cv-content.component';
-import DOMPurify from 'dompurify';
 
 @Component({
   selector: 'app-llm-response',
   imports: [FormsModule],
   templateUrl: './llm-response.component.html',
-  styles: `
-    textarea {
-      width: 100%;
-      height: 5rem;
-    }
-
-    .class {
-      width: 100%;
-    }
-  `,
+  styleUrl: './llm-response.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LlmResponseComponent {
@@ -26,16 +18,19 @@ export class LlmResponseComponent {
   systemPrompt = input.required<string>();
   query = model('');
   
-  candidateCV = contentChild(CvContentComponent);
-  candidateCVText = computed(() => this.candidateCV()?.editableCv() || '');
+  isLoading = inject(APP_STATE_TOKEN).isLoading;
 
+  candidateCV = contentChild(CvContentComponent);
+  answer = viewChild.required<ElementRef<HTMLDivElement>>('answer');
+  
   systemPromptWithContext = computed(() => {
-    if (this.candidateCVText()) {
+    const context = this.candidateCV()?.editableCv() || '';
+    if (context) {
       return `${this.systemPrompt()}
       
 The following is the context:
 
-${this.candidateCVText()}
+${context}
     `;
     }
     return this.systemPrompt();
@@ -45,12 +40,6 @@ ${this.candidateCVText()}
     { role: "system", content: this.systemPromptWithContext() },
     { role: "user", content: this.query() },
   ]));
-
-  isLoading = inject(APP_STATE_TOKEN).isLoading;
-
-  constructor() {
-    console.log(DOMPurify);
-  }
 
   async generateAnswer() {
     try {
@@ -63,24 +52,44 @@ ${this.candidateCVText()}
 
       const engine = this.engine() as MLCEngine;
       await engine.resetChat();
+      await this.#writeChunk(engine);
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
 
-      const chunks = await engine.chat.completions.create({
-        messages: this.messages(),
-        stream: true, // <-- Enable streaming
-      });
-      
-      if (!chunks) {
+  async #writeChunk(engine: MLCEngine) {
+    const answerElement = this.answer().nativeElement;
+    while (answerElement.lastChild) {
+      answerElement.removeChild(answerElement.lastChild as ChildNode);
+    } 
+    
+    const renderer = smd.default_renderer(answerElement);
+    const parser = smd.parser(renderer);
+
+    const chunks = await engine.chat.completions.create({
+      messages: this.messages(),
+      stream: true, // <-- Enable streaming
+    });
+    
+    if (!chunks) {
+      return;
+    }
+
+    let reply = '';
+    for await (const chunk of chunks) {
+      const chunkContent = chunk.choices[0]?.delta?.content || '';
+      reply = reply + chunkContent;
+
+      DOMPurify.sanitize(reply);
+      // Check if the output was insecure.
+      if (DOMPurify.removed.length) {
+        smd.parser_end(parser);
+        console.log('parser_end called');
         return;
       }
 
-      for await (const chunk of chunks) {
-        console.log('chunk', chunk.choices[0]?.delta?.content);
-        // if (chunk.usage) {
-        //   console.log(chunk.usage); // only last chunk has usage
-        // }
-      }
-    } finally {
-      this.isLoading.set(false);
+      smd.parser_write(parser, chunkContent);
     }
   }
 }

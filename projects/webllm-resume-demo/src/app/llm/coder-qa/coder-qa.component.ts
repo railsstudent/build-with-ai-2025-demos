@@ -25,5 +25,5 @@ import { LlmResponseComponent } from '../llm-response/llm-response.component';
 export default class CoderQAComponent {
   engine = signal<MLCEngine | undefined>(undefined);
   systemPrompt = signal('You are a helpful assistant who can solve any coding problem. If you do not know the answer, please reply "I do not know" and stop.');
-  query = signal('Please write a function to add two numbers and return the result. Please do not use any built-in function.');
+  query = signal('Please write a function to merge sort a list of numbers in ascending order.');
 }
