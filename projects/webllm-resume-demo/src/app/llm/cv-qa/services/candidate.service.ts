@@ -13,12 +13,12 @@ Highly motivated and results-oriented Frontend Engineer with 6+ years of experie
 
 Skills
 - Languages: JavaScript (ES6+), TypeScript, HTML5, CSS3
-- Frameworks/Libraries: Vue 3 (Composition API, Composable, Vue Router, Pinia), React, Redux
+- Frameworks/Libraries: Vue 2, Vue 3 (Composition API, Composable, Vue Router), React, Redux
 - Meta Frameworks: Nuxt.js, Next.js
 - UI Frameworks/Libraries: Quasar, Material-UI
-- Styling: Tailwind CSS, SCSS, CSS Modules, Styled Components
-- State Management: Pinia, Redux
-- Build Tools/Package Managers: Vite, npm
+- Styling: Tailwind CSS, SCSS, CSS Modules, Styled Components, Bootstrap
+- State Management: Pinia, Redux, VueX
+- Build Tools/Package Managers: Vite, NPM
 - Testing: Jest, Vitest, Cypress, Playwright
 - Version Control: Git (GitHub, GitLab)
 - Responsive Design: Mobile-First Development, Media Queries, Container Queries
@@ -41,11 +41,12 @@ Tech Solutions Inc., Hong Kong – Frontend Engineer 2021 – 2023 (2 years)
 - Completed integration test cases with Cypress, achieving 95% test coverage.
 - Optimized frontend performance by implementing lazy loading of images, improving initial page load times by 20%.
 
-WebDev Innovations, Connie Leung – Junior Frontend Developer 2019 – 2021 (2 years)
+WebDev Innovations, Hong Kong – Junior Frontend Developer 2019 – 2021 (2 years)
 - Developed and maintained key features for a React-based e-commerce application, utilizing Redux for state management and Material-UI.
 - Improved website accessibility by implementing ARIA attributes and adhering to WCAG guidelines.
 - Assisted senior developers in debugging and resolving frontend issues.
-- Creative Digital Agency, Austin, TX – Frontend Developer Intern 2017 – 2019 (2 years)
+
+Creative Digital Agency, Hong Kong – Frontend Developer Intern 2017 – 2019 (2 years)
 - Developed and implemented user interface components for client websites using HTML, CSS, and JavaScript.
 - Gained experience with responsive web design principles and cross-browser compatibility testing.
 - Contributed to the development of website templates using Bootstrap.
@@ -53,8 +54,4 @@ WebDev Innovations, Connie Leung – Junior Frontend Developer 2019 – 2021 (2 
 `);
 
   candidateCv$ = this.#candidateCv.asObservable();
-
-  // getCv() {
-  //   return of(this.#candidateCv);
-  // }
 }
