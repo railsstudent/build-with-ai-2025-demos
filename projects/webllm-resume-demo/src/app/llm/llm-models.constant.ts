@@ -9,6 +9,7 @@ const models: LLMModel[] = [
     { model: 'gemma-2-9b-it-q4f32_1-MLC', name: 'gemma-2-9b-it'},
     { model: 'Llama-3.2-3B-Instruct-q4f32_1-MLC', name: 'Llama-3.2-3B-Instruct' },
     { model: 'Mistral-7B-Instruct-v0.3-q4f32_1-MLC', name: 'Mistral-7B-Instruct-v0.3' },
+    { model: 'Phi-3.5-mini-instruct-q4f32_1-MLC', name: 'Phi-3.5-mini-instruct' },
   ];
 
 const math_models: LLMModel[] = [
