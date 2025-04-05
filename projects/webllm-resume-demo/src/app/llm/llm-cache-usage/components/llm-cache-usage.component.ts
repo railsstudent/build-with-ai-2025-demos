@@ -5,6 +5,7 @@ import { hasModelInCache } from '@mlc-ai/web-llm';
 import { LLM_MODEL_LIST } from '../../llm-models.constant';
 import { EngineService } from '../../services/engine.service';
 import { LLMModel } from '../../types/llm-model.type';
+import { LLMUsage } from '../../types/llm-usage.type';
 import { LlmCachedModelListComponent } from './llm-cached-model-list.component';
 import { LlmDeleteCacheComponent } from './llm-delete-cache.component';
 import { LlmSelectModelComponent } from './llm-select-model.component';
@@ -45,19 +46,23 @@ export class LlmCacheUsageComponent {
   deletedModel = signal('');
   #cacheModelIds = signal<string[]>([]);
 
-  cachedModelIdsResource = resource<string[], { progress: number, selectedModel: LLMModel, deletedModel: string }>({
+  cachedModelIdsResource = resource<string[], LLMUsage>({
     request: () => ({ 
       progress: this.progress(),
-      selectedModel: this.selectedModel(), deletedModel: this.deletedModel() }),
+      selectedModel: this.selectedModel(), 
+      deletedModel: this.deletedModel() 
+    }),
     loader: async ({ request }) => {
       const progress = request.progress;
       const selectedModel = request.selectedModel.model;
       const deletedModel = request.deletedModel;
 
-      const isDeletedModelInCache = deletedModel ? await hasModelInCache(deletedModel) : false;
+      const isDeletedModelInCache = deletedModel ? 
+        await hasModelInCache(deletedModel) : false;
 
       if (progress === 1) {
-        const isSelectedModelInCache = selectedModel ? await hasModelInCache(selectedModel): false;
+        const isSelectedModelInCache = selectedModel ? 
+          await hasModelInCache(selectedModel): false;
         if (isSelectedModelInCache && !this.#cacheModelIds().includes(selectedModel)) {
           this.#cacheModelIds.update((prev) => ([...prev, selectedModel]));
         }
