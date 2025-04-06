@@ -40,6 +40,10 @@ export class AppNavComponent {
     {
       name: 'Web LLM Model List',
       link: '/llm-model-list'
+    },
+    {
+      name: 'Resources',
+      link: '/resources'
     }
   ]);
 }
