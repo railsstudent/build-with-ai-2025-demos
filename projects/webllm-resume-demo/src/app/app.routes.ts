@@ -18,6 +18,10 @@ export const routes: Routes = [
         loadComponent: () => import('./llm/llm-model-list/llm-model-list.component')
     },
     {
+        path: 'resources',
+        loadComponent: () => import('./llm/resources/resources.component')
+    },
+    {
         path: '',
         redirectTo: 'cv-qa',
         pathMatch: 'full'   

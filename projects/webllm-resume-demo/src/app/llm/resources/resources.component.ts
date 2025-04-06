@@ -14,7 +14,7 @@ import { ResourcesService } from './services/resources.service';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WebLLMResourcesComponent {
+export default class WebLLMResourcesComponent {
   service = inject(ResourcesService);
   
   pages = toSignal(this.service.pages$, { initialValue: []} );
